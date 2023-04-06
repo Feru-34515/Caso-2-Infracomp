@@ -1,83 +1,46 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 
 class MemoryManager {
-    private List<PageFrame> pageFrames;
-    private List<PageTableEntry> pageTable;
+    PageTable pageTable;
+    Config config;
+    int[][] pageRefs;
 
-    public MemoryManager(int numFrames, int numPages) {
-        pageFrames = new ArrayList<PageFrame>();
-        for (int i = 0; i < numFrames; i++) {
-            pageFrames.add(new PageFrame(-1));
-        }
-
-        pageTable = new ArrayList<PageTableEntry>();
-        for (int i = 0; i < numPages; i++) {
-            pageTable.add(new PageTableEntry(-1, false, false));
-        }
+    public MemoryManager(Config config, int[][] pageRefs) {
+        this.config = config;
+        this.pageRefs = pageRefs;
+        pageTable = new PageTable(config);
     }
 
-    public PageTableEntry getPageTableEntry(int pageId) {
-        return pageTable.get(pageId);
-    }
+    public void simulateProcessBehavior(MatrixAdditionProcess process) {
+        process.tour1();
+        int[][] pageReferences = process.generatePageReferences();
 
-    public PageFrame getPageFrame(int index) {
-        return pageFrames.get(index);
-    }
-
-    public int getNumFrames() {
-        return pageFrames.size();
-    }
-
-    public int getNumPages() {
-        return pageTable.size();
-    }
-
-    public boolean isPageLoaded(int pageId) {
-        for (PageFrame frame : pageFrames) {
-            if (frame.getPageId() == pageId) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void loadPage(int pageId) {
-        for (PageFrame frame : pageFrames) {
-            if (frame.getPageId() == -1) {
-                frame.setPageId(pageId);
-                return;
+        for (int i = 0; i < config.numRows; i++) {
+            for (int j = 0; j < config.numCols; j++) {
+                int pageIndex = pageReferences[i][j];
+                pageTable.updatePageTable(pageIndex);
             }
         }
     }
 
-    public void evictPage() {
-        int minAge = Integer.MAX_VALUE;
-        int evictIndex = -1;
+    public void simulatePagingSystem() {
+        PageTableUpdaterThread pageTableUpdater = new PageTableUpdaterThread(pageTable, pageRefs, config);
+        AgingAlgorithmThread agingAlgorithm = new AgingAlgorithmThread(pageTable);
 
-        for (int i = 0; i < pageFrames.size(); i++) {
-            PageFrame frame = pageFrames.get(i);
+        Thread ptuThread = new Thread(pageTableUpdater);
+        Thread aaThread = new Thread(agingAlgorithm);
 
-            if (frame.getAge() < minAge) {
-                minAge = frame.getAge();
-                evictIndex = i;
-            }
-        }
+        ptuThread.start();
+        aaThread.start();
 
-        if (evictIndex != -1) {
-            pageFrames.get(evictIndex).setPageId(-1);
-            pageFrames.get(evictIndex).setAge(0);
-        }
-    }
-
-    public void agePages() {
-        for (PageFrame frame : pageFrames) {
-            if (frame.getPageId() != -1) {
-                PageTableEntry entry = getPageTableEntry(frame.getPageId());
-                entry.incrementAge();
-            }
-            frame.incrementAge();
+        try {
+            ptuThread.join();
+            aaThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
-
