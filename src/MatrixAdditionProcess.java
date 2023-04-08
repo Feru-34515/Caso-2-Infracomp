@@ -19,6 +19,7 @@ class MatrixAdditionProcess {
 
     public int[][] generatePageReferences() {
         int[][] pageRefs = new int[config.numRows][config.numCols];
+
         int pageSizeInIntegers = config.pageSize / config.integerSize;
 
         for (int i = 0; i < config.numRows; i++) {
