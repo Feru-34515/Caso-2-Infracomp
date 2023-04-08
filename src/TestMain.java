@@ -1,12 +1,10 @@
-public class Main {
+public class TestMain {
     public static void main(String[] args) {
-        if (args.length < 2) {
-            System.err.println("Error: Please provide a configuration file and mode number.");
-            return;
-        }
+        // Hardcoded configuration file path
+        String configFile = "C:\\Users\\LOLNI\\OneDrive\\Documents\\Andes\\Semestre 6\\InfraComp\\Caso 2\\Caso-2-Infracomp\\src\\config1.txt";
         
-        String configFile = args[0];
-        int mode = Integer.parseInt(args[1]);
+        // Hardcoded mode number
+        int mode = 1;
 
         Config config = new Config();
         config.loadConfiguration(configFile);

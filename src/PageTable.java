@@ -4,6 +4,7 @@ import java.util.Map;
 class PageTable {
     Map<Integer, Page> pages;
     Config config;
+    private int pageFaults;
 
     public PageTable(Config config) {
         this.config = config;
@@ -16,6 +17,7 @@ class PageTable {
                 evictPage();
             }
             pages.put(pageIndex, new Page(pageIndex));
+            pageFaults++;
         }
         pages.get(pageIndex).age |= 0b10000000;
     }
