@@ -2,11 +2,13 @@ class PageTableUpdaterThread implements Runnable {
     PageTable pageTable;
     int[][] pageRefs;
     Config config;
+    AgingAlgorithmThread agingAlgorithm;
 
-    public PageTableUpdaterThread(PageTable pageTable, int[][] pageRefs, Config config) {
+    public PageTableUpdaterThread(PageTable pageTable, int[][] pageRefs, Config config, AgingAlgorithmThread agingAlgorithm) {
         this.pageTable = pageTable;
         this.pageRefs = pageRefs;
         this.config = config;
+        this.agingAlgorithm = agingAlgorithm;
     }
 
     @Override
@@ -21,6 +23,7 @@ class PageTableUpdaterThread implements Runnable {
                 int pageIndex = pageRefs[i][j];
                 pageTable.updatePageTable(pageIndex);
             }
+            agingAlgorithm.setDone();
         }
     }
 }

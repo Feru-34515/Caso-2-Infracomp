@@ -4,7 +4,7 @@ public class TestMain {
         String configFile = "C:\\Users\\LOLNI\\OneDrive\\Documents\\Andes\\Semestre 6\\InfraComp\\Caso 2\\Caso-2-Infracomp\\src\\config1.txt";
         
         // Hardcoded mode number
-        int mode = 1;
+        int mode = 2;
 
         Config config = new Config();
         config.loadConfiguration(configFile);

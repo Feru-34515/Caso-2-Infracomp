@@ -27,18 +27,24 @@ class MemoryManager {
     }
 
     public void simulatePagingSystem() {
-        PageTableUpdaterThread pageTableUpdater = new PageTableUpdaterThread(pageTable, pageRefs, config);
         AgingAlgorithmThread agingAlgorithm = new AgingAlgorithmThread(pageTable);
-
+        PageTableUpdaterThread pageTableUpdater = new PageTableUpdaterThread(pageTable, pageRefs, config, agingAlgorithm);
+        
+        System.out.println("Starting PageTableUpdaterThread...");
         Thread ptuThread = new Thread(pageTableUpdater);
+        System.out.println("Starting AgingAlgorithmThread...");
         Thread aaThread = new Thread(agingAlgorithm);
 
         ptuThread.start();
         aaThread.start();
 
         try {
+            System.out.println("Joining PageTableUpdaterThread...");
             ptuThread.join();
+            System.out.println("PageTableUpdaterThread joined.");
+            System.out.println("Joining AgingAlgorithmThread...");
             aaThread.join();
+            System.out.println("AgingAlgorithmThread joined.");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
