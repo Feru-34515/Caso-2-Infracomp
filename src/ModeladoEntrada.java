@@ -55,19 +55,19 @@ public class ModeladoEntrada {
                 for (int i = 0; i<=((ciclos - Integer.parseInt(TE)) / Integer.parseInt(TE)); i++){
                     for (int j = 0; j<3; j++){                        
                         if (j == 0){
-                            bw.write("[A-" + filasM%Integer.parseInt(NC) + "-" + i%Integer.parseInt(NC) + "], " +  j + ", " + (i * Integer.parseInt(TE))%Integer.parseInt(TP)); 
+                            bw.write("[A-" + filasM%Integer.parseInt(NF) + "-" + i%Integer.parseInt(NC) + "], " +  j + ", " + (i * Integer.parseInt(TE))%Integer.parseInt(TP)); 
                             bw.newLine();
                         }
                         else if (j == 1){
-                            bw.write("[B-" + filasM%Integer.parseInt(NC) + "-" + i%Integer.parseInt(NC) + "], " +  j + ", " + (i * Integer.parseInt(TE))%Integer.parseInt(TP)); 
+                            bw.write("[B-" + filasM%Integer.parseInt(NF) + "-" + i%Integer.parseInt(NC) + "], " +  j + ", " + (i * Integer.parseInt(TE))%Integer.parseInt(TP)); 
                             bw.newLine();
                         }
                         else if (j == 2){
-                            bw.write("[C-" + filasM%Integer.parseInt(NC) + "-" + i%Integer.parseInt(NC) + "], " +  j + ", " + (i * Integer.parseInt(TE))%Integer.parseInt(TP)); 
+                            bw.write("[C-" + filasM%Integer.parseInt(NF) + "-" + i%Integer.parseInt(NC) + "], " +  j + ", " + (i * Integer.parseInt(TE))%Integer.parseInt(TP)); 
                             bw.newLine();
                         }
                     }
-                    if (i%Integer.parseInt(NC) == 7) {
+                    if (i%Integer.parseInt(NF) == (i%Integer.parseInt(NF)-1)) {
                         filasM++;
                     }
                 }
