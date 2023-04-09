@@ -41,7 +41,7 @@ public class ModeladoEntrada {
             try (FileWriter fw = new FileWriter(salida)) {
                 BufferedWriter bw = new BufferedWriter(fw);
                  //Descripción del problema
-                bw.write("TP= " + TP); // NF x NC x TE
+                bw.write("TP= " + TP); 
                 bw.newLine();
                 bw.write("NF= " + NF); 
                 bw.newLine();
@@ -50,8 +50,9 @@ public class ModeladoEntrada {
                 bw.write("NR= " + NR); // NF x NC x Numero de matrices
                 bw.newLine();
                 //Referencias generadas
-                int ciclos = Integer.parseInt(NF) * Integer.parseInt(NC) * Integer.parseInt(TE);
+                int ciclos = Integer.parseInt(NF) * Integer.parseInt(NC) * Integer.parseInt(TE); // NF x NC x TE
                 int filasM = 0;
+                System.out.println(Integer.parseInt(TP));
                 for (int i = 0; i<=((ciclos - Integer.parseInt(TE)) / Integer.parseInt(TE)); i++){
                     for (int j = 0; j<3; j++){                        
                         if (j == 0){
