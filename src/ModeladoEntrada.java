@@ -52,27 +52,31 @@ public class ModeladoEntrada {
                 //Referencias generadas
                 int ciclos = Integer.parseInt(NF) * Integer.parseInt(NC) * Integer.parseInt(TE); // NF x NC x TE
                 int filasM = 0;
+                int NuevasMatrices = 0;
                 System.out.println(Integer.parseInt(TP));
                 for (int i = 0; i<=((ciclos - Integer.parseInt(TE)) / Integer.parseInt(TE)); i++){
-                    for (int j = 0; j<3; j++){                        
+                    for (int j = 0; j<3; j++){
+                    	int pagina = j+NuevasMatrices;
                         if (j == 0){
-                            bw.write("[A-" + filasM%Integer.parseInt(NF) + "-" + i%Integer.parseInt(NC) + "], " +  j + ", " + (i * Integer.parseInt(TE))%Integer.parseInt(TP)); 
+                            bw.write("[A-" + filasM%Integer.parseInt(NF) + "-" + i%Integer.parseInt(NC) + "], " +  pagina + ", " + (i * Integer.parseInt(TE))%Integer.parseInt(TP)); 
                             bw.newLine();
                         }
                         else if (j == 1){
-                            bw.write("[B-" + filasM%Integer.parseInt(NF) + "-" + i%Integer.parseInt(NC) + "], " +  j + ", " + (i * Integer.parseInt(TE))%Integer.parseInt(TP)); 
+                            bw.write("[B-" + filasM%Integer.parseInt(NF) + "-" + i%Integer.parseInt(NC) + "], " +  pagina + ", " + (i * Integer.parseInt(TE))%Integer.parseInt(TP)); 
                             bw.newLine();
                         }
                         else if (j == 2){
-                            bw.write("[C-" + filasM%Integer.parseInt(NF) + "-" + i%Integer.parseInt(NC) + "], " +  j + ", " + (i * Integer.parseInt(TE))%Integer.parseInt(TP)); 
+                            bw.write("[C-" + filasM%Integer.parseInt(NF) + "-" + i%Integer.parseInt(NC) + "], " +  pagina + ", " + (i * Integer.parseInt(TE))%Integer.parseInt(TP)); 
                             bw.newLine();
                         }
                     }
-                    if (i%Integer.parseInt(NF) == (i%Integer.parseInt(NF)-1)) {
+                    if (i%Integer.parseInt(NF) == Integer.parseInt(NF)-1) {
                         filasM++;
                     }
+                    if ((i * Integer.parseInt(TE))%Integer.parseInt(TP) == (Integer.parseInt(TP)-4)) {
+                    	NuevasMatrices += 3;
+                    } 
                 }
-                
                 bw.close();
                 fw.close();
             } catch (IOException e) {
