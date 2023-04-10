@@ -49,11 +49,12 @@ public class ModeladoEntrada {
                 bw.newLine();
                 bw.write("NR= " + NR); // NF x NC x Numero de matrices
                 bw.newLine();
+                bw.write("MP= " + MP); // NF x NC x Numero de matrices
+                bw.newLine();
                 //Referencias generadas
                 int ciclos = Integer.parseInt(NF) * Integer.parseInt(NC) * Integer.parseInt(TE); // NF x NC x TE
                 int filasM = 0;
-                int NuevasMatrices = 0;
-                System.out.println(Integer.parseInt(TP));
+                int NuevasMatrices = 0; 
                 for (int i = 0; i<=((ciclos - Integer.parseInt(TE)) / Integer.parseInt(TE)); i++){
                     for (int j = 0; j<3; j++){
                     	int pagina = j+NuevasMatrices;
@@ -83,9 +84,12 @@ public class ModeladoEntrada {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-
-
-
-        
+                    
+    }
+    
+    public static int sacarNPaginas (String[] Entrada) {
+    	String MP = Entrada[4]; //Número de páginas o marcos de página
+    	int marcos = Integer.parseInt(MP);
+    	return marcos;
     }
 }
