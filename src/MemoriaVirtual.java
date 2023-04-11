@@ -83,36 +83,37 @@ public class MemoriaVirtual {
 	
 	}
 
-    public void algoritmoEnvejecimiento(int[][] MAP, int[][] MemoriaVirtual){
+    public static void algoritmoEnvejecimiento(int[][] MAP, int[][] RAM){
         int filasMAP = MAP.length;
-        int filasMemoriaVirtual = MemoriaVirtual.length;
+        int filasRAM = RAM.length;
         int numFallos = 0;
         int menor = 10000;
         int llave = 0;
         boolean centinela = false;
 
         for(int i=0; i<filasMAP; i++){
+            menor = 10000;
             if(MAP[i][1] == -1){
                 centinela = false;
                 numFallos++;
                 //Iterar sobre la RAM
-                for(int j=0; j<filasMemoriaVirtual; j++){
+                for(int j=0; j<filasRAM; j++){
                     //Caso en el que hay espacios en la Memoria Virtual que no han sido modificados aun
-                    if(MemoriaVirtual[j][1] == 0000){
+                    if(RAM[j][1] == 0){
                         centinela = true;
                         MAP[i][1] = i;
-                        MemoriaVirtual[j][1] = 1000;
+                        RAM[j][1] = 1000;
                         //Si se esta cambiando el valor en un espacio de la RAM que no sea el 0, se actualizan los anteriores
                         if (j>0){
                             for(int k=0; k<j; k++){
-                                if(MemoriaVirtual[k][1] == 1000){
-                                    MemoriaVirtual[k][1] = 0100;
+                                if(RAM[k][1] == 1000){
+                                    RAM[k][1] = 100;
                                 }
-                                else if(MemoriaVirtual[k][1] == 0100){
-                                    MemoriaVirtual[k][1] = 0010;
+                                else if(RAM[k][1] == 100){
+                                    RAM[k][1] = 10;
                                 }
-                                else if(MemoriaVirtual[k][1] == 0010){
-                                    MemoriaVirtual[k][1] = 0001;
+                                else if(RAM[k][1] == 10){
+                                    RAM[k][1] = 1;
                                 }
                             }
                         }
@@ -121,7 +122,7 @@ public class MemoriaVirtual {
                     //En caso de que no haya ningun espacio en la RAM con valor 0000, se encuentra el menor:
                     else{
                     //Convertir el valor del binario de la Memoria Virtual a decimal
-                    String binario = Integer.toString(MemoriaVirtual[j][1]);
+                    String binario = Integer.toString(RAM[j][1]);
                     int valor = convertirBinarioADecimal(binario);
                     if (valor < menor){
                         menor = valor;
@@ -134,20 +135,76 @@ public class MemoriaVirtual {
                     MAP[llave][1] = -1;
                     MAP[i][1] = llave;
 
-                    if(MemoriaVirtual[llave][1] == 0001){
-                        MemoriaVirtual[llave][1] = 1001;
+                    if(RAM[llave][1] == 10){
+                        RAM[llave][1] = 1001;
                     }
-                    else if(MemoriaVirtual[llave][1] == 0010){
-                        MemoriaVirtual[llave][1] = 1010;
+                    else if(RAM[llave][1] == 100){
+                        RAM[llave][1] = 1010;
                     }
-                    else if(MemoriaVirtual[llave][1] == 0100){
-                        MemoriaVirtual[llave][1] = 1100;
+                    else if(RAM[llave][1] == 1000){
+                        RAM[llave][1] = 1100;
+                    }
+                    
+                    if (llave>0){
+                        for(int h=0; h<llave; h++){
+                            if (RAM[h][1] == 10){
+                                RAM[h][1] = 1;
+                            }
+                            else if (RAM[h][1] == 100){
+                                RAM[h][1] = 10;
+                            }
+                            else if (RAM[h][1] == 1000){
+                                RAM[h][1] = 100;
+                            }
+                            else if (RAM[h][1] == 1010){
+                                RAM[h][1] = 101;
+                            }
+                            else if (RAM[h][1] == 1001){
+                                RAM[h][1] = 100;
+                            }
+                        }
+                        for(int h=llave+1; h<filasRAM; h++){
+                            if (RAM[h][1] == 10){
+                                RAM[h][1] = 1;
+                            }
+                            else if (RAM[h][1] == 100){
+                                RAM[h][1] = 10;
+                            }
+                            else if (RAM[h][1] == 1000){
+                                RAM[h][1] = 100;
+                            }
+                            else if (RAM[h][1] == 1010){
+                                RAM[h][1] = 101;
+                            }
+                            else if (RAM[h][1] == 1001){
+                                RAM[h][1] = 100;
+                            }
+                        }
+                    } 
+                    else{
+                        for(int h=llave+1; h<filasRAM; h++){
+                            if (RAM[h][1] == 10){
+                                RAM[h][1] = 1;
+                            }
+                            else if (RAM[h][1] == 100){
+                                RAM[h][1] = 10;
+                            }
+                            else if (RAM[h][1] == 1000){
+                                RAM[h][1] = 100;
+                            }
+                            else if (RAM[h][1] == 1010){
+                                RAM[h][1] = 101;
+                            }
+                            else if (RAM[h][1] == 1001){
+                                RAM[h][1] = 100;
+                            }
+                        }
                     }    
                 }
             }
         }
     }
-
+    
     public static int convertirBinarioADecimal(String binario){
         int decimal = 0;
         int longitud = binario.length();
@@ -155,8 +212,9 @@ public class MemoriaVirtual {
         for (int i = 0; i<longitud; i++){
             char digitoBinario = binario.charAt(i);
             if(digitoBinario == '1'){
-                decimal += Math.pow(2, longitud-i-1);
+                decimal += Math.pow (2, longitud-i-1);
             }
+            
             else if(digitoBinario != '0'){
                 throw new IllegalArgumentException("El numero binario debe contener solo 0s y 1s");
             }
