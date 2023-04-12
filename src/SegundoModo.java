@@ -99,7 +99,7 @@ public class SegundoModo {
     }
 
     //Segundo Thread
-    public static void algoritmoEnvejecimiento(int seleccionado){
+    public synchronized static void algoritmoEnvejecimiento(int seleccionado){
         int filasRAM = Main.RAM.length;
         for (int j = 0; j< filasRAM; j++){
             if (j == seleccionado) {
@@ -113,7 +113,7 @@ public class SegundoModo {
 
 
     
-    public static String correrDerecha0(String num){
+    public synchronized static String correrDerecha0(String num){
         String rta;
         if (num.equals("1000")){
             rta = "0100";
