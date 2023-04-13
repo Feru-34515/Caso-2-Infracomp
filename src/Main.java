@@ -16,17 +16,22 @@ public class Main {
         //Estructura segundo proceso
         
         
+        MemoriaRam memoriaRam = new MemoriaRam(MAP, RAM);
+
+
         //Creacionés Threads 
 
         // Un thread se encargará de ir actualizando el estado de la tabla de páginas y los marcos de página en memoria 
         // real, de acuerdo con las referencias generadas por el proceso y el número de marcos de página asignados. Este 
         // thread debe correr cada dos milisegundos (en vez de pulsos de reloj usaremos milisegundos).
-        Hilo1 actualizador = new Hilo1();
+        Hilo1 actualizador = new Hilo1(memoriaRam);
 
         // El otro thread se encargará de ejecutar el algoritmo de envejecimiento (con base en el esquema presentado por 
         // Tanenbaum). Este thread debe correr cada milisegundo (en vez de pulsos de reloj usaremos milisegundos). 
-        Hilo2 envejeciemiento = new Hilo2();
-        
+        Hilo2 envejeciemiento = new Hilo2(memoriaRam);
+
+        actualizador.start();
+        envejeciemiento.start();
     }
     
     

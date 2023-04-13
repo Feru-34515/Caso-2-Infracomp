@@ -1,9 +1,11 @@
 
 public class Hilo1 extends Thread{
-	 
-	 
-	 public Hilo1 (){
 
+    private MemoriaRam memoriaRam;
+	 
+	 
+	 public Hilo1 (MemoriaRam memoriaRam){
+        this.memoriaRam = memoriaRam;
 	    }
 	 
 	
@@ -22,29 +24,29 @@ public class Hilo1 extends Thread{
                 int filasRAMRevisadas = 0;
                 int filaDelMenor = 0;
                 while (!menorEncontrado && filasRAMRevisadas < filasRAM){
-                    if (Main.RAM[filasRAMRevisadas][1].equals("0000")) {
+                    if (memoriaRam.getRAMValue(filasRAMRevisadas).equals("0000")) {
                         filaDelMenor = filasRAMRevisadas; 
                         menorEncontrado = true;
                     }
-                    else if (Main.RAM[filasRAMRevisadas][1].equals("0010") && (Main.RAM[filaDelMenor][1].equals("0100") || Main.RAM[filaDelMenor][1].equals("1000"))){
+                    else if (memoriaRam.getRAMValue(filasRAMRevisadas).equals("0010") && (memoriaRam.getRAMValue(filaDelMenor).equals("0100") || memoriaRam.getRAMValue(filaDelMenor).equals("1000"))){
                         filaDelMenor = filasRAMRevisadas;
                     }
-                    else if (Main.RAM[filasRAMRevisadas][1].equals("0100") && Main.RAM[filaDelMenor][1].equals("1000")){
+                    else if (memoriaRam.getRAMValue(filasRAMRevisadas).equals("0100") && memoriaRam.getRAMValue(filaDelMenor).equals("1000")){
                         filaDelMenor = filasRAMRevisadas;
                     }
                     filasRAMRevisadas ++;
                     }
                     for (int j = 0; j< filasMAP; j++){
-                        if (Main.MAP[j][1].equals(Integer.toString(filaDelMenor))){
-                            Main.MAP[j][1] = "X";
+                        if (memoriaRam.getMapValue(j).equals(Integer.toString(filaDelMenor))){
+                            memoriaRam.actualizarMAP(j, "X");
                         }
                     }
-                    Main.MAP[i][1] = Integer.toString(filaDelMenor);
+                    memoriaRam.actualizarRAM(filaDelMenor, Poner1(memoriaRam.getRAMValue(filaDelMenor)));
                     System.out.println("Se corrigió el fallo de página vitual poniendo la referencia " + filaDelMenor + " como página de la RAM en el MAP") ;
                     Main.RAM[filaDelMenor][1] = Poner1(Main.RAM[filaDelMenor][1]);
                 }
                 else{
-                    Main.RAM[i][1] = Poner1(Main.RAM[i][1]);
+                    memoriaRam.actualizarRAM(i, Poner1(memoriaRam.getRAMValue(i)));
 
 
                 }

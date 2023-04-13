@@ -1,27 +1,31 @@
 public class Hilo2 extends Thread{
 	 
-	 
-    public Hilo2 (){
+    private MemoriaRam memoriaRam;
 
-       }
+    public Hilo2(MemoriaRam memoriaRam) {
+        this.memoriaRam = memoriaRam;
+    }
     
    
    
    public void run() {
-    int filasRAM = Main.RAM.length;
+    int filasRAM = memoriaRam.getRAMSize();
 
     for (int j = 0; j< filasRAM; j++){
-        if (Main.RAM[j][1].equals("1000")){
-            Main.RAM[j][1] = "0100";
-        }
-        else if (Main.RAM[j][1].equals("0100")){
-            Main.RAM[j][1] = "0010";
-        }
-        else if (Main.RAM[j][1].equals("0010")){
-            Main.RAM[j][1] = "0001";
-        }
-        else{
-            Main.RAM[j][1] = "0000";
+        String currentValue = memoriaRam.getRAMValue(j);
+        switch (currentValue) {
+            case "1000":
+                memoriaRam.actualizarRAM(j, "0100");
+                break;
+            case "0100":
+                memoriaRam.actualizarRAM(j, "0010");
+                break;
+            case "0010":
+                memoriaRam.actualizarRAM(j, "0001");
+                break;
+            default:
+                memoriaRam.actualizarRAM(j, "0000");
+                break;
         }
 
         }
