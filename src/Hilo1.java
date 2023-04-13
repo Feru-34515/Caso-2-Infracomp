@@ -1,63 +1,16 @@
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.List;
 
-public class SegundoModo {
+public class Hilo1 extends Thread{
+	 
+	 
+	 public Hilo1 (){
+
+	    }
+	 
 	
-
-	public static String[][] crearRAM() {
-       
-        int filas = Main.marcos;
-        String[][] RAM = new String[filas][2];
-        
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < 2; j++) {
-            	if (j== 0) {
-            	RAM[i][j] = Integer.toString(i);
-            	}
-            	if (j== 1) {
-                	RAM[i][j] = "0000";
-                	}
-            }
-        }
- 
-        return RAM;
-	}
 	
-	public static String[][] crearMAP(int Preales) {
-		String archivo = "src/Salida.txt"; // Ruta del archivo de texto a leer
-        List<String> ultimaFila = null; // Variable para almacenar la última fila
+	public void run() {
 
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-
-            // Leer el archivo y almacenar la última fila
-            while ((linea = br.readLine()) != null) {
-                ultimaFila = List.of(linea.split(", "));;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        int Pvirtuales = Integer.parseInt(ultimaFila.get(1));
-        String[][] MAP = new String[Pvirtuales+1][2];
-        for(int i = 0; i <= Pvirtuales; i++) {
-        	for (int j = 0; j < 2; j++) {
-        		if (j== 0) {
-        			MAP[i][j] = Integer.toString(i);
-                	}
-        		if (j== 1) {
-        			MAP[i][j] = "X";
-                	}
-        	}
-        }
-		return MAP;
-	
-	}
-    //Primer Thread
-    public static void actualizador(){
-        int filasMAP = Main.MAP.length;
+		int filasMAP = Main.MAP.length;
         int filasRAM = Main.RAM.length;
         int numFallos = 0;
 
@@ -96,29 +49,16 @@ public class SegundoModo {
 
                 }
             }
-        
-    }
-
-    //Segundo Thread
-    public static String algoritmoEnvejecimiento(String num){
-        String rta;
-        if (num.equals("1000")){
-            rta = "0100";
-        }
-        else if (num.equals("0100")){
-            rta = "0010";
-        }
-        else if (num.equals("0010")){
-            rta = "0001";
-        }
-        else{
-            rta = "0000";
-        }
-        return rta;
-
-    }
-
-    public static String Poner1(String num){
+			try {
+                
+                Thread.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+	
+	}
+	
+	public static String Poner1(String num){
         String rta;
         if (num.equals("1000")){
             rta = "1100";
@@ -135,7 +75,5 @@ public class SegundoModo {
         return rta;
 
     }
-    
+
 }
-
-

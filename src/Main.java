@@ -15,18 +15,17 @@ public class Main {
         ModeladoEntrada.modeladoSalida(entrada);
         //Estructura segundo proceso
         
-        SegundoModo.actualizador();
         
         //Creacionés Threads 
 
         // Un thread se encargará de ir actualizando el estado de la tabla de páginas y los marcos de página en memoria 
         // real, de acuerdo con las referencias generadas por el proceso y el número de marcos de página asignados. Este 
         // thread debe correr cada dos milisegundos (en vez de pulsos de reloj usaremos milisegundos).
-        // Hilo actualizador = new Hilo(1);
+        Hilo1 actualizador = new Hilo1();
 
         // El otro thread se encargará de ejecutar el algoritmo de envejecimiento (con base en el esquema presentado por 
         // Tanenbaum). Este thread debe correr cada milisegundo (en vez de pulsos de reloj usaremos milisegundos). 
-        // Hilo envejeciemiento = new Hilo(2);
+        Hilo2 envejeciemiento = new Hilo2();
         
     }
     
