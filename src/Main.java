@@ -29,9 +29,13 @@ public class Main {
         // El otro thread se encargará de ejecutar el algoritmo de envejecimiento (con base en el esquema presentado por 
         // Tanenbaum). Este thread debe correr cada milisegundo (en vez de pulsos de reloj usaremos milisegundos). 
         Hilo2 envejeciemiento = new Hilo2(memoriaRam, hilo1Terminado);
-
-        actualizador.start();
+        
+        
+        
         envejeciemiento.start();
+        actualizador.start();
+        
+        System.out.println("corre");
     }
     
     
