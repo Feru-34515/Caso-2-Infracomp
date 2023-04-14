@@ -1,11 +1,14 @@
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Hilo1 extends Thread{
 
     private MemoriaRam memoriaRam;
+    private AtomicBoolean hilo1Terminado;
 	 
 	 
-	 public Hilo1 (MemoriaRam memoriaRam){
+	 public Hilo1 (MemoriaRam memoriaRam, AtomicBoolean hilo1Terminado){
         this.memoriaRam = memoriaRam;
+        this.hilo1Terminado = hilo1Terminado;
 	    }
 	 
 	
@@ -60,6 +63,8 @@ public class Hilo1 extends Thread{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            hilo1Terminado.set(true);
 	
 	}
 	
