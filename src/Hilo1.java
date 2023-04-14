@@ -49,6 +49,7 @@ public class Hilo1 extends Thread{
                     memoriaRam.actualizarRAM(filaDelMenor, Poner1(memoriaRam.getRAMValue(filaDelMenor)));
                     System.out.println("En consecuencia, se solucionó el fallo de página virtual poniendo la referencia " + filaDelMenor + " como página de la RAM en el MAP") ;
                     System.out.println("") ;
+                    Main.RAM[filaDelMenor][1] = Poner1(Main.RAM[filaDelMenor][1]);
                 }
                 else{
                     memoriaRam.actualizarRAM(i, Poner1(memoriaRam.getRAMValue(i)));
@@ -58,10 +59,13 @@ public class Hilo1 extends Thread{
             }
 			try {
                 
-                Thread.sleep(4);
+                Thread.sleep(2);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            hilo1Terminado.set(true);
+	
 	}
 	
 	public static String Poner1(String num){
