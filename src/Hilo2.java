@@ -9,6 +9,7 @@ public class Hilo2 extends Thread{
    
    
    public void run() {
+    System.out.println("Hola");
     int filasRAM = memoriaRam.getRAMSize();
 
     for (int j = 0; j< filasRAM; j++){

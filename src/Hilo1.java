@@ -24,6 +24,8 @@ public class Hilo1 extends Thread{
                 int filasRAMRevisadas = 0;
                 int filaDelMenor = 0;
                 while (!menorEncontrado && filasRAMRevisadas < filasRAM){
+                    String bits = memoriaRam.getRAMValue(filasRAMRevisadas);
+                    System.out.println("En la fila " + filasRAMRevisadas + " de la memoria RAM están los bits " + bits) ;
                     if (memoriaRam.getRAMValue(filasRAMRevisadas).equals("0000")) {
                         filaDelMenor = filasRAMRevisadas; 
                         menorEncontrado = true;
@@ -42,7 +44,8 @@ public class Hilo1 extends Thread{
                         }
                     }
                     memoriaRam.actualizarRAM(filaDelMenor, Poner1(memoriaRam.getRAMValue(filaDelMenor)));
-                    System.out.println("Se corrigió el fallo de página vitual poniendo la referencia " + filaDelMenor + " como página de la RAM en el MAP") ;
+                    System.out.println("En consecuencia, se solucionó el fallo de página virtual poniendo la referencia " + filaDelMenor + " como página de la RAM en el MAP") ;
+                    System.out.println("") ;
                     Main.RAM[filaDelMenor][1] = Poner1(Main.RAM[filaDelMenor][1]);
                 }
                 else{
