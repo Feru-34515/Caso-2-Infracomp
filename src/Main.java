@@ -13,11 +13,8 @@ public class Main {
         //Primer Proceso
         AtomicBoolean hilo1Terminado = new AtomicBoolean(false);
         ModeladoEntrada.modeladoSalida(entrada);
-        //Estructura segundo proceso
-        
         
         MemoriaRam memoriaRam = new MemoriaRam(MAP, RAM);
-
 
         //Creacionés Threads 
 
@@ -30,10 +27,10 @@ public class Main {
         // Tanenbaum). Este thread debe correr cada milisegundo (en vez de pulsos de reloj usaremos milisegundos). 
         Hilo2 envejeciemiento = new Hilo2(memoriaRam, hilo1Terminado);
         
-        
-        
-        envejeciemiento.start();
+        envejeciemiento.start();  
         actualizador.start();
+
+        
         
         System.out.println("corre");
     }

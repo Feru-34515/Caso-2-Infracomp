@@ -14,25 +14,16 @@ public class Hilo2 extends Thread{
    
     public void run() {
         while (!hilo1Terminado.get()) {
-            System.out.println("Hola");
+            System.out.println("-----------------------------------------------");
             int filasRAM = memoriaRam.getRAMSize();
 
             for (int j = 0; j< filasRAM; j++){
                 String currentValue = memoriaRam.getRAMValue(j);
-                switch (currentValue) {
-                    case "1000":
-                        memoriaRam.actualizarRAM(j, "0100");
-                        break;
-                    case "0100":
-                        memoriaRam.actualizarRAM(j, "0010");
-                        break;
-                    case "0010":
-                        memoriaRam.actualizarRAM(j, "0001");
-                        break;
-                    default:
-                        memoriaRam.actualizarRAM(j, "0000");
-                        break;
-                }
+                String subcurrentValue = currentValue.substring(0, currentValue.length() - 1);
+                String Corrido = "0" + subcurrentValue;
+
+                memoriaRam.actualizarRAM(j, Corrido);
+                //System.out.println(Corrido);
             }
             try {
                 Thread.sleep(1);
